@@ -1,7 +1,5 @@
 package Connect4;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
