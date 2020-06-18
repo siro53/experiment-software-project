@@ -1,7 +1,5 @@
 package Connect4;
 
-import com.sun.tools.corba.se.idl.StringGen;
-
 public class Board {
     // 6 rows 7 columns
     // まだ置かれていない -> "."
@@ -9,9 +7,9 @@ public class Board {
     // player2 -> "x"
     public static final int H = 6;
     public static final int W = 7;
-    private int[][] Grid;
+    public int[][] Grid;
 
-    Board() {
+    public Board() {
         this.Grid = new int[H][W];
         for (int i = 0; i < H; i++) {
             for (int j = 0; j < W; j++) {
@@ -20,7 +18,7 @@ public class Board {
         }
     }
 
-    void printBoard() {
+    public void printBoard() {
         for (int i = 0; i < H; i++) {
             for (int j = 0; j < W; j++) {
                 switch (Grid[i][j]) {
@@ -42,7 +40,7 @@ public class Board {
     // player1の勝ち -> 1
     // player2の勝ち -> 2
     // 勝敗決まらず -> 0
-    int isWin() {
+    public int isWin() {
         // ヨコ
         for (int i = 0; i < H; i++) {
             for (int j = 0; j < W - 3; j++) {
@@ -119,7 +117,7 @@ public class Board {
     }
 
     // j列目に置けるかどうか
-    int canPlace(int j) {
+    public int canPlace(int j) {
         if (j < 0 || j >= W) {
             return -1;
         }
@@ -132,7 +130,7 @@ public class Board {
     }
 
     // player{turn}の番
-    void set(int i, int j, int turn) {
+    public void set(int i, int j, int turn) {
         Grid[i][j] = turn;
     }
 }
