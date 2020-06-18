@@ -1,7 +1,5 @@
 package Connect4;
 
-import com.sun.tools.corba.se.idl.StringGen;
-
 public class Board {
     // 6 rows 7 columns
     // まだ置かれていない -> "."
