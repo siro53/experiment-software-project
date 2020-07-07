@@ -133,4 +133,8 @@ public class Board {
     void set(int i, int j, int turn) {
         Grid[i][j] = turn;
     }
+
+    int get(int i, int j){
+        return Grid[i][j];
+    }
 }
