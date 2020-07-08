@@ -34,7 +34,7 @@ public class ServerPlayer {
     }
 
     public void play(Main main) {
-        System.out.println("nowTurn : " + nowTurn);
+//        System.out.println("nowTurn : " + nowTurn);
         switch (nowTurn) {
             case 0:
                 // 相手のターンの処理をする
@@ -64,12 +64,14 @@ public class ServerPlayer {
                         board.set(row, col, turnNumber);
                         if (board.isWin() == turnNumber) {
                             main.text("あなたの勝ちです！", 230, 450);
+                            main.colOfMouseClicked = -1;
                             Out.println(-1);
                         } else {
+                            main.colOfMouseClicked = -1;
                             Out.println(row * 100 + col);
                         }
                         nowTurn = (nowTurn + 1) % 3;
-                    }else {
+                    } else {
                         main.colOfMouseClicked = -1;
                     }
                 }
@@ -78,6 +80,7 @@ public class ServerPlayer {
                 // テキスト表示のためにこれを噛ませる
                 main.fill(0);
                 main.text("相手のターンです", 230, 50);
+                main.colOfMouseClicked = -1;
                 nowTurn = (nowTurn + 1) % 3;
                 break;
         }

@@ -39,7 +39,7 @@ public class Main extends PApplet {
 
     @Override
     public void draw() {
-        System.out.println("mouse position: "+colOfMouseClicked);
+//        System.out.println("mouse position: "+colOfMouseClicked);
         background(255);
         // 盤面を作成
         fill(0);
