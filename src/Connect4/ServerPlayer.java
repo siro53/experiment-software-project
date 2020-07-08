@@ -16,10 +16,11 @@ public class ServerPlayer {
     private int num;
     private int row;
     private int col;
-    private int nowTurn = 2;
+    private int nowTurn;
 
     public ServerPlayer() {
         this.board = new Board();
+        this.nowTurn = 2;
         try {
             this.serverSocket = new ServerSocket(PORT);
             System.out.println("Started: " + this.serverSocket);
@@ -33,6 +34,7 @@ public class ServerPlayer {
     }
 
     public void play(Main main) {
+        System.out.println("nowTurn : " + nowTurn);
         switch (nowTurn) {
             case 0:
                 // 相手のターンの処理をする
@@ -46,8 +48,10 @@ public class ServerPlayer {
                 } else {
                     row = num / 100;
                     col = num - (num / 100) * 100;
-                    board.set(row, col, turnNumber);
+                    board.set(row, col, ClientPlayer.turnNumber);
                 }
+                main.colOfMouseClicked = -1;
+                nowTurn = (nowTurn + 1) % 3;
                 break;
             case 1:
                 // 自分のターンの処理をする
@@ -56,9 +60,7 @@ public class ServerPlayer {
                 if (main.colOfMouseClicked != -1) {
                     col = main.colOfMouseClicked;
                     row = board.canPlace(col);
-                    if (row == -1) {
-                        main.colOfMouseClicked = -1;
-                    } else {
+                    if (row != -1) {
                         board.set(row, col, turnNumber);
                         if (board.isWin() == turnNumber) {
                             main.text("あなたの勝ちです！", 230, 450);
@@ -66,6 +68,9 @@ public class ServerPlayer {
                         } else {
                             Out.println(row * 100 + col);
                         }
+                        nowTurn = (nowTurn + 1) % 3;
+                    }else {
+                        main.colOfMouseClicked = -1;
                     }
                 }
                 break;
@@ -73,8 +78,8 @@ public class ServerPlayer {
                 // テキスト表示のためにこれを噛ませる
                 main.fill(0);
                 main.text("相手のターンです", 230, 50);
+                nowTurn = (nowTurn + 1) % 3;
                 break;
         }
-        nowTurn = (nowTurn + 1) % 3;
     }
 }

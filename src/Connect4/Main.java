@@ -39,6 +39,7 @@ public class Main extends PApplet {
 
     @Override
     public void draw() {
+        System.out.println("mouse position: "+colOfMouseClicked);
         background(255);
         // 盤面を作成
         fill(0);
@@ -64,9 +65,11 @@ public class Main extends PApplet {
                             case 1:
                                 fill(255, 0, 0);
                                 ellipse(OFFSET_X + 25 + 50 * j, OFFSET_Y + 25 + 50 * i, 25, 25);
+                                break;
                             case 2:
                                 fill(0, 0, 255);
                                 ellipse(OFFSET_X + 25 + 50 * j, OFFSET_Y + 25 + 50 * i, 25, 25);
+                                break;
                         }
                     }
                 }
@@ -75,7 +78,7 @@ public class Main extends PApplet {
         } else {
             for (int i = 0; i < Board.H; i++) {
                 for (int j = 0; j < Board.W; j++) {
-                    switch (this.serverPlayer.board.get(i, j)) {
+                    switch (this.clientPlayer.board.get(i, j)) {
                         case 1:
                             fill(255, 0, 0);
                             ellipse(OFFSET_X + 25 + 50 * j, OFFSET_Y + 25 + 50 * i, 25, 25);
