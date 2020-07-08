@@ -73,7 +73,11 @@ public class Main extends PApplet {
                         }
                     }
                 }
-                serverPlayer.play(this);
+                try {
+                    serverPlayer.play(this);
+                } catch (NumberFormatException e) {
+                    System.exit(0);
+                }
             }
         } else {
             for (int i = 0; i < Board.H; i++) {
@@ -90,7 +94,11 @@ public class Main extends PApplet {
                     }
                 }
             }
-            clientPlayer.play(this);
+            try {
+                clientPlayer.play(this);
+            } catch (NumberFormatException e) {
+                System.exit(0);
+            }
         }
     }
 
@@ -101,6 +109,7 @@ public class Main extends PApplet {
                 colOfMouseClicked = j;
             }
         }
+        System.out.println(colOfMouseClicked);
     }
 
 }
