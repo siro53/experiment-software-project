@@ -16,7 +16,7 @@ public class ServerPlayer {
     private int num;
     private int row;
     private int col;
-    private int nowTurn;
+    public int nowTurn;
 
     public ServerPlayer() {
         this.board = new Board();
@@ -34,7 +34,6 @@ public class ServerPlayer {
     }
 
     public void play(Main main) {
-//        System.out.println("nowTurn : " + nowTurn);
         try {
             switch (nowTurn) {
                 case 0:
@@ -44,34 +43,38 @@ public class ServerPlayer {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    if (num == -1) {
-                        main.text("あなたの負けです...", 230, 450);
+                    if (num >= 10000) {
+                        num -= 10000;
+                        row = num / 100;
+                        col = num - (num / 100) * 100;
+                        board.set(row, col, ClientPlayer.turnNumber);
+                        nowTurn = 4;
                     } else {
                         row = num / 100;
                         col = num - (num / 100) * 100;
                         board.set(row, col, ClientPlayer.turnNumber);
+                        nowTurn = (nowTurn + 1) % 3;
                     }
                     main.colOfMouseClicked = -1;
-                    nowTurn = (nowTurn + 1) % 3;
                     break;
                 case 1:
                     // 自分のターンの処理をする
                     main.fill(0);
-                    main.text("あなたのターンです", 230, 50);
+                    main.text("あなたのターンです", 200, 35);
                     if (main.colOfMouseClicked != -1) {
                         col = main.colOfMouseClicked;
                         row = board.canPlace(col);
                         if (row != -1) {
                             board.set(row, col, turnNumber);
                             if (board.isWin() == turnNumber) {
-                                main.text("あなたの勝ちです！", 230, 450);
                                 main.colOfMouseClicked = -1;
-                                Out.println(-1);
+                                Out.println(row * 100 + col + 10000);
+                                nowTurn = 3;
                             } else {
                                 main.colOfMouseClicked = -1;
                                 Out.println(row * 100 + col);
+                                nowTurn = (nowTurn + 1) % 3;
                             }
-                            nowTurn = (nowTurn + 1) % 3;
                         } else {
                             main.colOfMouseClicked = -1;
                         }
@@ -80,9 +83,17 @@ public class ServerPlayer {
                 case 2:
                     // テキスト表示のためにこれを噛ませる
                     main.fill(0);
-                    main.text("相手のターンです", 230, 50);
+                    main.text("相手のターンです", 200, 35);
                     main.colOfMouseClicked = -1;
                     nowTurn = (nowTurn + 1) % 3;
+                    break;
+                case 3:
+                    main.fill(0);
+                    main.text("あなたの勝ちです！", 120, 450);
+                    break;
+                case 4:
+                    main.fill(0);
+                    main.text("あなたの負けです...", 120, 450);
                     break;
             }
         } catch (NumberFormatException e) {

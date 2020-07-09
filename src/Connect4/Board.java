@@ -2,9 +2,6 @@ package Connect4;
 
 public class Board {
     // 6 rows 7 columns
-    // まだ置かれていない -> "."
-    // player1 -> "o"
-    // player2 -> "x"
     public static final int H = 6;
     public static final int W = 7;
     private int[][] Grid;
