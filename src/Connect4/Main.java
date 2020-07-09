@@ -51,7 +51,16 @@ public class Main extends PApplet {
         } else {
             fill(255, 0, 0);
         }
-        ellipse(305,70,25,25);
+        ellipse(305, 70, 25, 25);
+        if ((isServer && serverPlayer.nowTurn == 1) || (!isServer && clientPlayer.nowTurn == 1)) {
+            for (int j = 0; j < Board.W; j++) {
+                if (OFFSET_Y <= mouseY && mouseY <= OFFSET_Y + 300 && OFFSET_X + 50 * j <= mouseX && mouseX < OFFSET_X + 50 * (j + 1)) {
+                    fill(0, 255, 255);
+                    rect(OFFSET_X + 50 * j, OFFSET_Y, 50, 300);
+                    break;
+                }
+            }
+        }
         fill(0);
         // ヨコ
         for (int i = 0; i < 7; i++) {
